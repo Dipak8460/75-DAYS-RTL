@@ -1,0 +1,44 @@
+module tb_half_adder();
+reg a_in;
+reg b_in;
+wire sum;
+wire carry;
+
+half_adder DUT(.a_in(a_in),
+               .b_in(b_in),
+               .sum(sum),
+               .carry(carry));
+
+always #10 a_in= $urandom();
+always #20 b_in= $urandom();
+
+initial
+begin
+$monitor("time=%0t, a_in=%0b, b_in=%0b, sum=%0b, carry=%0b", $time, a_in, b_in, sum, carry);
+a_in= 'b0;
+b_in= 'b0;
+#1000 $finish();
+end               
+endmodule
+
+
+///2nd tb
+module half_adder_tb;
+	reg a,b;
+	wire sum,c_out;
+
+
+half_adder ha(a,b,c,sum,c_out);
+
+always #5 a = ~a;
+always #5 b = ~b;
+initial
+	begin
+
+			a =0;
+			b =0;
+
+			#200 $finish;
+	end
+
+endmodule
